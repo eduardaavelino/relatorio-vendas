@@ -25,9 +25,9 @@ corpo_email = f"""
 """
 
 # --- Configurações do e-mail ---
-remetente = "dudaavelinobonfim@gmail.com"
-senha = "migr desq vuyl wevn"
-destinatario = "dudaavelinobonfim@gmail.com"
+remetente = "remetente@gmail.com"
+senha = "senha de app do gmail"
+destinatario = "destinatario@gmail.com"
 
 # --- Criar a mensagem ---
 msg = MIMEMultipart("alternative")
@@ -46,39 +46,6 @@ try:
 except Exception as e:
     print("❌ Erro ao enviar e-mail:", e)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# <p>Prezados,</p>
-
-#<p>Segue o Relatório de Vendas por cada Loja.</p>
-
-#<p>Faturamento:</p>
-#{faturamento.to_html(formatters = {'Valor Final': 'R${:,.2f}'.format})}
-
-#<p>Quantidade Vendida:</p>
-#{quantidade.to_html()}
-
-#<p>Ticket Médio dos Produtos em cada Loja:</p>
-#{ticket_medio.to_html(formatters = {'Ticket Médio': 'R${:,.2f}'.format})}
-
-#<p>Qualquer dúvida estou à disposição.</p>
-
-#<p>Atenciosamente,</p>
-#<p>Eduarda</p>
-#'''
 
 
 
