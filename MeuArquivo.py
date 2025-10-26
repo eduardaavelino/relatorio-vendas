@@ -1,18 +1,19 @@
+# Importar as bibliotecas
 import pandas as pd
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# --- Ler planilha ---
+# Importar a planilha
 tabela_vendas = pd.read_excel('Vendas.xlsx')
 
-# --- Estabelecer variáveis ---
+# Estabelecer as variáveis
 faturamento = tabela_vendas[['ID Loja', 'Valor Final']].groupby('ID Loja').sum()
 quantidade = tabela_vendas[['ID Loja', 'Quantidade']].groupby('ID Loja').sum()
 ticket_medio = (faturamento['Valor Final'] / quantidade['Quantidade']).to_frame()
 ticket_medio = ticket_medio.rename(columns={0: 'Ticket Médio'})
 
-# --- Montar corpo do e-mail ---
+# Escrever o e-mail
 corpo_email = f"""
 <p>Olá,</p>
 <p>Segue o relatório de vendas por loja:</p>
@@ -24,27 +25,27 @@ corpo_email = f"""
 <p>Atenciosamente,<br>Eduarda</p>
 """
 
-# --- Configurações do e-mail ---
+# Configurações do e-mail
 remetente = "remetente@gmail.com"
 senha = "senha de app do gmail"
 destinatario = "destinatario@gmail.com"
 
-# --- Criar a mensagem ---
+# Criar a mensagem
 msg = MIMEMultipart("alternative")
 msg["From"] = remetente
 msg["To"] = destinatario
 msg["Subject"] = "Relatório de Vendas por Loja"
 msg.attach(MIMEText(corpo_email, "html"))
 
-# --- Enviar e-mail via SMTP do Gmail ---
+# Enviar e-mail via SMTP do gmail
 try:
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()  # conexão segura
         server.login(remetente, senha)
         server.sendmail(remetente, destinatario, msg.as_string())
-    print("✅ E-mail enviado com sucesso!")
+    print("E-mail enviado com sucesso!")
 except Exception as e:
-    print("❌ Erro ao enviar e-mail:", e)
+    print("Erro ao enviar e-mail:", e)
 
 
 
